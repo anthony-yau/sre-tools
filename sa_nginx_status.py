@@ -58,7 +58,7 @@ def handler(signum, frame):
 def  main():
     parser = options()
     (opt,argv) = parser.parse_args()
-    active_num = read_num = write_num = wait_num = 0
+    active_num = read_num = write_num = wait_num = header_num = 0
     if len(sys.argv[1:]) < 3:
         parser.print_help()
         sys.exit(1)
@@ -68,8 +68,8 @@ def  main():
         else:
             status_type = 'all'
         if status_type == 'all':
-            print "\033[1;32m----time---- -----active---- -----read---- -----write---- -----wait----"
-            print "\033[1;32m-"*76
+            print "\033[44;1m---time--- ----active---- -----read----- -----write---- -----wait----\033[0m"
+            print "\033[44;1m-\033[0m"*69
             while True:
                 active_num = read_num = write_num = wait_num = 0
                 signal.signal(signal.SIGINT, handler)
@@ -80,9 +80,13 @@ def  main():
                     read_num += ngx_parser.parser_reading()
                     write_num += ngx_parser.parser_writing()
                     wait_num += ngx_parser.parser_waiting()
-                    
+                header_num += 1
+                if header_num > 15:
+                    print "\033[44;1m---time--- ----active---- -----read----- -----write---- -----wait----\033[0m"
+                    print "\033[44;1m-\033[0m"*69
+                    header_num = 0
                 #print result to stdout
-                print "%-*s| %14d| %14d| %14d| %14d" %(11,time.strftime('%H:%M:%S',time.localtime()),active_num,read_num,write_num,wait_num)
+                print "%-*s| %13d| %13d| %13d| %13d" %(9,time.strftime('%H:%M:%S',time.localtime()),active_num,read_num,write_num,wait_num)
                 time.sleep(opt.interval)
 
         else:
