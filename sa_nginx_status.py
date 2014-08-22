@@ -52,7 +52,7 @@ class parser_ngx_status():
         return waiting_num
 
 def handler(signum, frame):
-        print "Exit Now..."
+        print "\033[1;31mExit Now...\033[0m"
         sys.exit(0)
 
 def  main():
@@ -108,7 +108,7 @@ def  main():
             elif status_type == 'wait':
                 for name in list(opt.server_name.split(',')):
                     ngx_parser = parser_ngx_status(server_name=name, uri=opt.page)
-                    wait_num += ngx_parser.parser_waiting
+                    wait_num += ngx_parser.parser_waiting()
                 print wait_num
             else:
                 print "Unknow nginx status type,please input (active|read|write|wait|all)."
