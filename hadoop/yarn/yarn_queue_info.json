@@ -1,0 +1,48 @@
+{
+    "batch_queue_infos": [
+        {
+            "queue_name": "batch.operation",
+            "max_memory_mb": "1024",
+            "Operator": "GE"
+        },
+        {
+            "queue_name": "batch.marketing",
+            "max_memory_mb": "81920"
+        }
+    ],
+    "stream_queue_infos": [
+        {
+            "queue_name": "stream.marketing",
+            "max_memory_mb": "81920"
+        },
+        {
+            "queue_name": "stream.operation",
+            "max_memory_mb": "1024",
+            "Operator": "GE"
+        }
+    ],
+    "default_queue_infos": [
+        {
+            "queue_name": "default",
+            "max_memory_mb": "0",
+            "Operator": "GE"
+        }
+    ],
+    "partition_infos": [
+        {
+            "queue": "batch_queue_infos",
+            "label": "batch",
+            "memory_mb": "102519"
+        },
+        {
+            "queue": "stream_queue_infos",
+            "label": "stream",
+            "memory_mb": "102519"
+        },
+        {
+            "queue": "default_queue_infos",
+            "label": "default",
+            "memory_mb": "0"
+        }
+    ]
+}
